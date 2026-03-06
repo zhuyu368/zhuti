@@ -471,21 +471,23 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(138, 127, 141, 0.3);
   flex-shrink: 0;
-  /* 颜色由统一样式控制 */
 }
 
 .settings-toggle:hover {
+  background: var(--accent-light);
   transform: rotate(30deg);
-  /* 颜色由统一样式控制 */
 }
 
 .settings-toggle i {
-  color: #b27c7c;
+  color: white;
   font-size: 1.1rem;
 }
 
@@ -494,21 +496,23 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(138, 127, 141, 0.3);
   flex-shrink: 0;
-  /* 颜色由统一样式控制 */
 }
 
 .theme-toggle:hover {
+  background: var(--accent-light);
   transform: rotate(30deg);
-  /* 颜色由统一样式控制 */
 }
 
 .theme-toggle i {
-  color: #b27c7c;
+  color: white;
   font-size: 1.1rem;
 }
 
@@ -646,7 +650,7 @@ body {
   left: 0;
 }
 
-/* 修改：操作按钮变大并使用粉色玻璃风格（不再使用灰色） */
+/* 修改：操作按钮变大并使用粉色玻璃风格 */
 .message-action-btn {
   padding: 8px 16px;
   border: none;
@@ -1526,7 +1530,7 @@ body {
   margin-top: 12px;
 }
 
-/* 修改：通话和视频按钮改为粉色玻璃风格（不再黑色） */
+/* 修改：通话和视频按钮改为粉色玻璃风格 */
 .call-button, .video-button {
   flex: 1;
   padding: 12px;
@@ -3140,7 +3144,7 @@ input:checked + .slider:before {
   transition: all 0.3s ease !important;
 }
 
-/* 悬停效果：颜色加深，轻微上浮（可去掉上浮，这里仅加深颜色） */
+/* 悬停效果：颜色加深，轻微上浮（无动画） */
 .send-button:hover,
 .continue-button:hover,
 .upload-image-button:hover,
@@ -3176,7 +3180,7 @@ input:checked + .slider:before {
   border-color: rgba(255, 180, 190, 0.7) !important;
   box-shadow: 0 14px 22px rgba(255, 160, 170, 0.25), inset 0 1px 6px rgba(255, 255, 255, 0.9) !important;
   color: #a57272 !important;
-  transform: none !important; /* 确保没有浮动动画 */
+  transform: translateY(-2px) !important; /* 轻微上浮，无动画 */
 }
 
 /* 夜间模式下的粉色玻璃按钮 */
@@ -3252,7 +3256,7 @@ input:checked + .slider:before {
   border-color: rgba(140, 80, 90, 0.6) !important;
   color: #f5c0c0 !important;
   box-shadow: 0 10px 20px rgba(255, 100, 120, 0.25), inset 0 1px 6px rgba(255, 255, 255, 0.2) !important;
-  transform: none !important;
+  transform: translateY(-2px) !important;
 }
 /* ===== 粉色玻璃按钮统一样式结束 ===== */
 
@@ -3601,8 +3605,6 @@ input:checked + .slider:before {
     <button class="tab-button" data-tab="music">音乐播放</button>
     <!-- 新增拍一拍设置标签 -->
     <button class="tab-button" data-tab="poke">👋 拍一拍设置</button>
-    <!-- 新增气泡样式标签 -->
-    <button class="tab-button" data-tab="bubble">💬 气泡样式</button>
     <button class="tab-button" data-tab="data">数据管理</button>
   </div>
   
@@ -4052,46 +4054,6 @@ input:checked + .slider:before {
       </div>
     </div>
     <!-- ===== 拍一拍设置模块结束 ===== -->
-
-    <!-- ===== 新增：气泡样式自定义模块 ===== -->
-    <div class="settings-section-card" id="section-bubble" data-tab="bubble">
-      <div class="settings-section-header collapsed" onclick="toggleSection('bubble')">
-        <span>💬 气泡样式自定义</span>
-        <i class="material-icons" id="icon-bubble">expand_more</i>
-      </div>
-      <div class="settings-section-content collapsed" id="content-bubble">
-        <p>在这里输入自定义CSS来修改聊天气泡的样式。你可以使用类名 <code>.message.self</code> 和 <code>.message.other</code> 分别控制自己和对方法的气泡。</p>
-        <div style="margin-bottom: 15px;">
-          <label class="communication-label">CSS 输入框：</label>
-          <textarea class="tarot-textarea" id="bubbleCssInput" placeholder="例如：&#10;.message.self { background: #ffcccc; }&#10;.message.other { background: #ccffcc; }" style="height:150px;"></textarea>
-        </div>
-        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-          <button class="save-phrases-btn" id="applyBubbleCssBtn" style="flex:1;">应用样式</button>
-          <button class="remove-background-btn" id="clearBubbleCssBtn" style="flex:1; background: var(--accent-gray);">清除</button>
-        </div>
-        <div>
-          <label class="communication-label">预览效果：</label>
-          <div class="bubble-preview" style="background: rgba(255,255,255,0.3); border-radius: 12px; padding: 15px; margin-top: 10px;">
-            <!-- 自己消息示例 -->
-            <div class="message-container self" style="margin-bottom: 10px;">
-              <div class="message-avatar"><span></span></div>
-              <div class="message-content">
-                <div class="message self">这是自己发送的消息预览</div>
-              </div>
-            </div>
-            <!-- 对方消息示例 -->
-            <div class="message-container other">
-              <div class="message-avatar"><span></span></div>
-              <div class="message-content">
-                <div class="message other">这是对方发送的消息预览</div>
-              </div>
-            </div>
-            <p style="font-size:0.7rem; color:#888; text-align:center; margin-top:10px;">预览框使用当前自定义样式，点击“应用样式”后生效并保存。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ===== 气泡样式自定义模块结束 ===== -->
     
     <!-- ===== 数据管理模块（已删除消息推送，已删除标题图标） ===== -->
     <div class="settings-section-card" id="section-data" data-tab="data">
@@ -4185,8 +4147,6 @@ class ChatDataManager {
         this.GROUP_SETTINGS_KEY = 'seven_and_wish_group_settings';
         // 新增拍一拍设置存储键
         this.POKE_SETTINGS_KEY = 'seven_and_wish_poke_settings';
-        // 新增气泡样式CSS存储键
-        this.CUSTOM_BUBBLE_CSS_KEY = 'seven_and_wish_custom_bubble_css';
         
         // 版本控制
         this.DATA_VERSION_KEY = 'seven_and_wish_data_version';
@@ -4309,14 +4269,11 @@ class ChatDataManager {
         });
 
         // 默认拍一拍设置
-        this.setStoredData(this.POKE_SETTINGS_KEY, {
-            enabled: true,
-            frequency: 50,
-            phrases: ["拍了拍你", "拍了拍我的肩膀", "拍了拍我的脑袋", "戳了戳我", "轻轻碰了碰我", "摸了摸我的头", "捏了捏我的脸"]
-        });
-        
-        // 默认气泡样式CSS（空）
-        this.setStoredData(this.CUSTOM_BUBBLE_CSS_KEY, '');
+this.setStoredData(this.POKE_SETTINGS_KEY, {
+    enabled: true,
+    frequency: 50,  // 把 20 改成 50 更容易测试
+    phrases: ["拍了拍你", "拍了拍我的肩膀", "拍了拍我的脑袋", "戳了戳我", "轻轻碰了碰我", "摸了摸我的头", "捏了捏我的脸"]
+});
         
         // 默认回复词条
         this.setStoredData(this.PHRASES_KEY, [
@@ -4728,15 +4685,6 @@ class ChatDataManager {
         return this.setStoredData(this.POKE_SETTINGS_KEY, settings);
     }
     
-    // ---- 自定义气泡CSS ----
-    getCustomBubbleCSS() {
-        return this.getStoredData(this.CUSTOM_BUBBLE_CSS_KEY) || '';
-    }
-    
-    saveCustomBubbleCSS(css) {
-        return this.setStoredData(this.CUSTOM_BUBBLE_CSS_KEY, css);
-    }
-    
     // ---- 恋爱天数 ----
     getLoveDays() {
         return this.getStoredData(this.LOVE_DAYS_KEY) || 1;
@@ -4819,8 +4767,6 @@ class ChatApp {
             // 新增拍一拍设置
             pokeSettings: null,
             pokeTimer: null,
-            // 新增自定义气泡CSS
-            customBubbleCSS: null,
             
             // 运行时状态
             isTyping: false,
@@ -4954,9 +4900,6 @@ class ChatApp {
         // 加载拍一拍设置
         this.appData.pokeSettings = this.dataManager.getPokeSettings();
         
-        // 加载自定义气泡CSS
-        this.appData.customBubbleCSS = this.dataManager.getCustomBubbleCSS();
-        
         // 加载已抽取塔罗牌记录（Set）
         this.appData.drawnCards = this.dataManager.getDrawnCards();
         
@@ -5048,9 +4991,6 @@ class ChatApp {
         // 保存拍一拍设置
         this.dataManager.savePokeSettings(this.appData.pokeSettings);
         
-        // 保存自定义气泡CSS
-        this.dataManager.saveCustomBubbleCSS(this.appData.customBubbleCSS);
-        
         // 保存已抽取塔罗牌记录
         this.dataManager.saveDrawnCards(this.appData.drawnCards);
         
@@ -5091,19 +5031,6 @@ class ChatApp {
             this.appData.loveDays = Math.floor(timeDiff / (1000 * 3600 * 24)) + 1;
             if (this.appData.loveDays < 1) this.appData.loveDays = 1;
         }
-    }
-    
-    /**
-     * 应用自定义气泡样式
-     */
-    applyCustomBubbleCSS(css) {
-        let styleEl = document.getElementById('custom-bubble-style');
-        if (!styleEl) {
-            styleEl = document.createElement('style');
-            styleEl.id = 'custom-bubble-style';
-            document.head.appendChild(styleEl);
-        }
-        styleEl.textContent = css || '';
     }
     
     /**
@@ -5200,9 +5127,6 @@ class ChatApp {
         this.initActiveCallSettingsUI();
         this.initMusicSettingsUI();
         this.renderPokeUI(); // 新增拍一拍UI
-        
-        // 应用自定义气泡CSS
-        this.applyCustomBubbleCSS(this.appData.customBubbleCSS);
         
         this.updateStickerCount();
         this.updatePhraseCount();
@@ -7867,7 +7791,6 @@ class ChatApp {
             groupSettings: this.appData.groupSettings,
             musicSettings: this.appData.musicSettings,
             pokeSettings: this.appData.pokeSettings, // 新增拍一拍设置
-            customBubbleCSS: this.appData.customBubbleCSS, // 新增气泡样式
             drawnCards: Array.from(this.appData.drawnCards || []),
             loveDays: this.appData.loveDays,
             readNoReplyMessageIds: this.appData.readNoReplyMessageIds,
@@ -7962,7 +7885,6 @@ class ChatApp {
                                 if (backup.appData.groupSettings) this.appData.groupSettings = backup.appData.groupSettings;
                                 if (backup.appData.musicSettings) this.appData.musicSettings = backup.appData.musicSettings;
                                 if (backup.appData.pokeSettings) this.appData.pokeSettings = backup.appData.pokeSettings; // 新增拍一拍
-                                if (backup.appData.customBubbleCSS !== undefined) this.appData.customBubbleCSS = backup.appData.customBubbleCSS; // 新增气泡样式
                                 if (backup.appData.loveDays) this.appData.loveDays = backup.appData.loveDays;
                                 if (backup.appData.readNoReplyMessageIds) this.appData.readNoReplyMessageIds = backup.appData.readNoReplyMessageIds;
                                 if (backup.appData.drawnCards && Array.isArray(backup.appData.drawnCards)) {
@@ -8437,41 +8359,6 @@ class ChatApp {
         const pokeTextarea = document.getElementById('pokePhrasesTextarea');
         if (pokeTextarea) {
             pokeTextarea.addEventListener('input', () => this.updatePokePhraseCount());
-        }
-
-        // ===== 新增：气泡样式自定义监听 =====
-        const bubbleCssInput = document.getElementById('bubbleCssInput');
-        const applyBubbleCssBtn = document.getElementById('applyBubbleCssBtn');
-        const clearBubbleCssBtn = document.getElementById('clearBubbleCssBtn');
-
-        if (bubbleCssInput) {
-            // 初始化输入框为保存的CSS
-            bubbleCssInput.value = this.appData.customBubbleCSS || '';
-            
-            // 实时预览：输入时立即更新样式（但不保存）
-            bubbleCssInput.addEventListener('input', (e) => {
-                this.applyCustomBubbleCSS(e.target.value);
-            });
-        }
-
-        if (applyBubbleCssBtn) {
-            applyBubbleCssBtn.addEventListener('click', () => {
-                const css = bubbleCssInput ? bubbleCssInput.value : '';
-                this.appData.customBubbleCSS = css;
-                this.applyCustomBubbleCSS(css);
-                this.saveAllData();
-                this.showNotification('气泡样式已应用并保存');
-            });
-        }
-
-        if (clearBubbleCssBtn) {
-            clearBubbleCssBtn.addEventListener('click', () => {
-                if (bubbleCssInput) bubbleCssInput.value = '';
-                this.appData.customBubbleCSS = '';
-                this.applyCustomBubbleCSS('');
-                this.saveAllData();
-                this.showNotification('已清除自定义样式');
-            });
         }
         
         // 数据管理初始化
